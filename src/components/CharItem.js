@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 
 export default class CharItem extends Component {
-    // this.url = 'https://rickandmortyapi.com/api/character/avatar/'
+    url = 'https://rickandmortyapi.com/api/character/avatar/'
     render() {
-        // var full_url = {this.url}+ {this.props.characters.id} + '.jpeg'
+        var full_url = `${this.url}${this.props.characters.id}.jpeg`
 
         return (
-            <div className ='card text-center'>
+            <div className = "card text-center">
                 <img 
-                src= ''
-                className ='round-img'
-                style={{width:'60px'}}
+                src= {full_url}
+                alt= ""
+
+                className ="round-img"
+                style={{width:'120px'}}
                 />
-               <p> {this.props.characters.name} </p>
+                <h3>{this.props.characters.name}</h3> 
+                <p><b>Status:</b>{this.props.characters.status}</p>
             </div>
         )
     }

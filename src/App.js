@@ -6,11 +6,10 @@ function App() {
   return (
     <div className="App">
       
-{console.log("works here")}
-{console.log("Hello world!")}
+    <div className="container">
+        <AllChars />
 
-      <AllChars />
-     
+    </div> 
     </div>
   );
 }

@@ -23,20 +23,22 @@ export default class AllChars extends Component {
     render() {
         return (
             <div style = {characterStyle}>
-            {
-                  <ul className="ul-list">
+            
+                
                { this.state.characters.results.map(characterItem => (
                 <CharItem key = {characterItem.id} characters = {characterItem}   />) 
                )}
-               </ul> 
-            }
+               
+            
             </div>
         )
     }
 }
 const characterStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    // gridTemplateColumns: 'repeat(3, 1fr)',
+
+    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
     gridGap: '1rem'
     
 }
