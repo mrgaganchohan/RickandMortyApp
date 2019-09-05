@@ -42,10 +42,10 @@ img {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
+  max-width: auto-fill;
   margin: auto;
   overflow: hidden;
-  padding: 0 2rem;
+  padding: 0 0rem;
 }
 
 /* Text Styles*/
@@ -412,3 +412,5 @@ table th {
     justify-content: center;
   }
 }
+
+

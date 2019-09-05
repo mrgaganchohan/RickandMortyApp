@@ -1,6 +1,7 @@
 const initialState = {
     allCharacters: [],
-    currentPage: 1
+    currentPage: 1,
+    lastPage:1
 };
 
 export default function (state = initialState, action) {
@@ -9,6 +10,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentPage: action.payload
+            }
+        case 'last_Page':
+            return {
+                ...state,
+                lastPage: action.payload
             }
         default:
             return state;
