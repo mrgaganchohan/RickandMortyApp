@@ -6,7 +6,6 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case 'current_Page':
-            console.log("kjhasd" + action.payload)
             return {
                 ...state,
                 currentPage: action.payload

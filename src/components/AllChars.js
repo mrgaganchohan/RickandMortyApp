@@ -10,11 +10,21 @@ class AllChars extends Component {
     this.state = {
       characters: {
         // Making sure during first render, it is not
-        results: []
+        results: [], 
+        info: {}
       }
     };
   }
 
+  componentDidUpdate(prevProps){
+    if (this.props.currentPage !== prevProps.currentPage){
+    axios
+    .get(
+      `https://rickandmortyapi.com/api/character/?page=${this.props.currentPage}`
+    )
+    .then(res => this.setState({ characters: res.data }));
+    }
+  }
   componentDidMount() {
     // this.props.setCurrentPage()
     axios
@@ -27,6 +37,7 @@ class AllChars extends Component {
   render() {
     return (
       <div>
+          <h1>Page {this.props.currentPage}</h1>
         <div style={characterStyle}>
           {this.state.characters.results.map(characterItem => (
             <CharItem key={characterItem.id} characters={characterItem} />
@@ -34,18 +45,38 @@ class AllChars extends Component {
         </div>
         <br />
         <br />
-        {console.log('Before the stuff' + this.props.currentPage)}
 
-        {console.log("lets see if it happens before")}
         <a
-          style={{ color: 'blue' }}
+          style={{ color: 'blue' , margin:'15px'}}
+            href="#"
           onClick={() =>{this.props.setCurrentPage(
-            parseInt`{this.props.currentPage}` + 1
+             1
+          )}}
+        >
+          Home
+        </a 
+        >
+        {/* Conditional rendering being done here. */}
+        {(this.props.currentPage!==1) && <a 
+        style = {{ color: 'blue', margin:"15px"}}
+        href= "#"
+        onClick={() =>{this.props.setCurrentPage(
+            (parseInt(this.props.currentPage) - 1)
+          )}}
+        >Previous</a>}
+        {/* Making sure if there is no next page, it doesn't show the next button */}
+        {
+            (this.state.characters.info.next!=="") &&
+        <a 
+          style={{ color: 'blue', margin:"15px" }}
+          href="#top"
+          onClick={() =>{this.props.setCurrentPage(
+            (parseInt(this.props.currentPage) + 1)
           )}}
         >
           Next
         </a>
-        {console.log('the value is ' + this.props.currentPage)}
+        }
         <br />
         <br />
         <hr />
