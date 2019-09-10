@@ -1,6 +1,7 @@
 import React from 'react';
 import AllChars from './components/AllChars'
 import NavBar from './components/NavBar'
+import Routes from './components/routes'
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -11,9 +12,8 @@ function App() {
     <div className="App">
       
     <div className="container">
-      <NavBar />
-        <AllChars />
-        
+       <NavBar />
+    <Routes/>  
 
     </div> 
     </div>

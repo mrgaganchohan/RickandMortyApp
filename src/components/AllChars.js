@@ -11,8 +11,10 @@ class AllChars extends Component {
       characters: {
         // Making sure during first render, it is not
         results: [], 
-        info: {}
-      }
+        info: {},
+      },
+      loaded : false
+
     };
 
   }
@@ -33,9 +35,9 @@ class AllChars extends Component {
         `https://rickandmortyapi.com/api/character/?page=${this.props.currentPage}`
       )
     //   Multiple lines in a promise
-      .then(res => {this.setState({ characters: res.data })
+      .then(res => {this.setState({ characters: res.data  })
       this.props.setLastPage(res.data.info.pages)
-        
+    
     }
 
       );
@@ -53,7 +55,7 @@ class AllChars extends Component {
           }}>Page {this.props.currentPage}</h1>
         <div style={characterStyle}>
           {this.state.characters.results.map(characterItem => (
-            <CharItem key={characterItem.id} characters={characterItem} />
+            <CharItem key={characterItem.id} loaded = {this.state.loaded} characters={characterItem} />
           ))}
         </div>
         <br />
