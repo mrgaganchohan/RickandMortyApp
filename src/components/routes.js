@@ -7,11 +7,11 @@ export default class routes extends Component {
     render() {
         return (
             <BrowserRouter>
-                <switch>
+                <Switch>
                     <Route exact path = "/" component = {AllChars} />
                     <Route path = "/viewcharacter/:id" component = {ViewCharacter}/>
                     <Route path = "/viewcharacterwithHooks/:id" component = {ViewCharacterHooks} />
-                </switch>
+                </Switch>
             </BrowserRouter>
         )
     }
