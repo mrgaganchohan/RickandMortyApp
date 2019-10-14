@@ -24,7 +24,7 @@ export default class CharItem extends Component {
                 {/* <Link to = {`/viewcharacter/${this.props.characters.id}`}> */}
                
                 {/* Following line points to the page that uses Hooks and Contexts */}
-                <Link to = {`/viewcharacterwithHooks/${this.props.characters.id}`}>
+                <Link to = {`/ViewCharacter/${this.props.characters.id}`}>
 
                 <a style = {{color: 'blue'}}>
                     View</a>
