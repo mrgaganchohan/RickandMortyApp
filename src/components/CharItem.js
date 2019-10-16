@@ -29,6 +29,12 @@ export default class CharItem extends Component {
                 <a style = {{color: 'blue'}}>
                     View</a>
                     </Link>
+                <br/>
+                <Link to = {`/viewcharacterwithHooks/${this.props.characters.id}`}>
+                <a style = {{color: 'blue'}}>
+                    View Hooks Implementation</a>
+
+                </Link>
             </div>
         )
     }

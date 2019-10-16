@@ -11,7 +11,9 @@ class ViewCharacter extends Component {
         this.state = {
             id : this.props.match.params.id,
             character:  {
-
+                // If you don't have any conditonal rendering in render()
+                // Then use the following, make sure objects aren't empty, 
+                // as rendering will fail on initial run. 
                 // origin:{
                 //     name : ""
                 // },
