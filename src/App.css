@@ -347,7 +347,7 @@ table th {
 }
 
 /* Navbar */
-.navbar {
+/* .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -374,7 +374,7 @@ table th {
 
 .navbar .welcome span {
   margin-right: 0.6rem;
-}
+} */
 
 /* Mobile Styles */
 @media (max-width: 700px) {
@@ -402,7 +402,7 @@ table th {
   }
 
   /* Navbar */
-  .navbar {
+  /* .navbar {
     display: block;
     text-align: center;
   }
@@ -410,7 +410,7 @@ table th {
   .navbar ul {
     text-align: center;
     justify-content: center;
-  }
+  } */
 }
 
 

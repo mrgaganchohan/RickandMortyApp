@@ -2,30 +2,34 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import CharItem from './CharItem';
-import { setCurrentPage , setLastPage} from '../actions/GetCharacters';
+import { setCurrentPage , setLastPage, setCharacters} from '../actions/GetCharacters';
 class AllChars extends Component {
   constructor(props) {
     super(props);
     //Initialising the Ac
     this.state = {
-      characters: {
-        // Making sure during first render, it is not
-        results: [], 
-        info: {},
-      },
+      // characters: {
+      //   // Making sure during first render, it is not
+       
+      // },
+      searchBar:"",
       loaded : false
 
     };
 
   }
+  onChange=(e)=>{
+    this.setState({ [e.target.name]: e.target.value })
 
+  }
   componentDidUpdate(prevProps){
     if (this.props.currentPage !== prevProps.currentPage){
     axios
     .get(
       `https://rickandmortyapi.com/api/character/?page=${this.props.currentPage}`
     )
-    .then(res => this.setState({ characters: res.data }));
+    // .then(res => this.setState({ characters: res.data }));
+    .then(res=>this.props.setCharacters(res.data))
     }
   }
   componentDidMount() {
@@ -35,7 +39,7 @@ class AllChars extends Component {
         `https://rickandmortyapi.com/api/character/?page=${this.props.currentPage}`
       )
     //   Multiple lines in a promise
-      .then(res => {this.setState({ characters: res.data  })
+      .then(res => {this.props.setCharacters(res.data)
       this.props.setLastPage(res.data.info.pages)
     
     }
@@ -47,6 +51,7 @@ class AllChars extends Component {
   render() {
     return (
       <div>
+
           <h1 style = {{
 
         padding: '0 2rem'
@@ -54,13 +59,18 @@ class AllChars extends Component {
 
           }}>Page {this.props.currentPage}</h1>
         <div style={characterStyle}>
-          {this.state.characters.results.map(characterItem => (
+          {/* Applying conditonal rendering below */}
+          {this.props.characters.results && this.props.characters.results.map(characterItem => (
             <CharItem key={characterItem.id} loaded = {this.state.loaded} characters={characterItem} />
           ))}
         </div>
+        {/* APPLYING CONDITIONAL RENDERING WITH FOOTER */}
+        {this.props.characters.info &&
+        <div className="footer">
+          
         <br />
         <br />
-
+        
         <a
           style={{ color: 'blue' , margin:'15px'}}
             href="#"
@@ -71,7 +81,8 @@ class AllChars extends Component {
           Home
         </a 
         >
-        {/* Conditional rendering being done here. */}
+        {/* Conditional rendering being done here.   */}
+
         {(this.props.currentPage!==1) && <a 
         style = {{ color: 'blue', margin:"15px"}}
         href= "#"
@@ -96,11 +107,11 @@ class AllChars extends Component {
           )}}
         >Page 20</a>
         {/* Making sure if there is no next page, it doesn't show the next button */}
-        {console.log("value inside render is "+this.state.characters.info.pages)}
+        {this.props.characters.info.pages  && console.log("value inside render is "+this.props.characters.info.pages)}
         {console.log("next inside render is "+this.props.lastPage)}
 
         {
-            (this.state.characters.info.next!=="") &&
+            (this.props.characters.info.next!=="") &&
         <a 
           style={{ color: 'blue', margin:"15px" }}
           href="#top"
@@ -124,7 +135,10 @@ class AllChars extends Component {
         <br />
         <br />
         <hr />
+        </div>
+        }
       </div>
+      
     );
   }
 }
@@ -139,10 +153,11 @@ const characterStyle = {
 };
 const mapStateToProps = state => ({
   currentPage: state.getCharacter.currentPage,
-  lastPage: state.getCharacter.lastPage
+  lastPage: state.getCharacter.lastPage,
+  characters: state.getCharacter.characters
 });
 
 export default connect(
   mapStateToProps,
-  { setCurrentPage, setLastPage }
+  { setCurrentPage, setLastPage, setCharacters }
 )(AllChars);

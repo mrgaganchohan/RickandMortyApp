@@ -10,9 +10,12 @@ import {Link} from 'react-router-dom'
 // and a state variable.
 
 
-
-
-
+// ###########################################################################
+// ###########################################################################
+// ({match}, props) will work too, it has to be {match} as the first argument.
+// The above line will just pull the match parameter from the props.
+// otherwise just pass props and access it's values as follows in the code.
+// So to pull a particular field from props, do as (match, {somrandomstuff})
 const ViewCharacterHooks = (  props ) => {
 
     var match = props.match

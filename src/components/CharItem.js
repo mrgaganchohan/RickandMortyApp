@@ -15,7 +15,7 @@ export default class CharItem extends Component {
                 src= {full_url}
                 alt= ""
 
-                className ="round-img"
+                className ="round-img mx-auto"
                 style={{width:'120px' , backgroundImage: `url(require(${loading}))`}}
                 />
                 <h3>{this.props.characters.name}</h3> 
@@ -29,7 +29,6 @@ export default class CharItem extends Component {
                 <a style = {{color: 'blue'}}>
                     View</a>
                     </Link>
-                <br/>
                 <Link to = {`/viewcharacterwithHooks/${this.props.characters.id}`}>
                 <a style = {{color: 'blue'}}>
                     View Hooks Implementation</a>

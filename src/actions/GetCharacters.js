@@ -8,3 +8,10 @@ export const setLastPage = (last_page) => dispatch =>
 {
     dispatch({type: 'last_Page', payload: last_page})
 }
+
+
+export const setCharacters = (characters) => dispatch =>
+{
+    dispatch({type: 'characters', payload: characters})
+}
+
