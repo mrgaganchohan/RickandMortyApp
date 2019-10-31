@@ -2,7 +2,8 @@ const initialState = {
     allCharacters: [],
     currentPage: 1,
     lastPage:1,
-    characters:{}
+    characters:{},
+    SearchTerm:''
 };
 
 export default function (state = initialState, action) {
@@ -22,6 +23,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 lastPage: action.payload
+            }
+        case 'SearchTerm':
+            return {
+                ...state,
+                SearchTerm: action.payload
             }
         default:
             return state;

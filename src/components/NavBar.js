@@ -3,30 +3,27 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 
-import { setCharacters } from '../actions/GetCharacters';
+import { setCharacters, setSearchTerm} from '../actions/GetCharacters';
 
 
 class NavBar extends Component {
 
     state = {
-        SearchTerm: ''
     }
 
     onChange = (e) =>{
-        this.setState ({
-            [e.target.name]: e.target.value
-        })
+        this.props.setSearchTerm(
+             e.target.value
+
+        )
     }
-    componentDidUpdate(prevProps, prevState){
-        console.log("Prev one is "+ typeof prevState.SearchTerm)
-        console.log("Newer one is "+ typeof this.state.SearchTerm)
-        if (this.state.SearchTerm !== prevState.SearchTerm)
+    componentDidUpdate(prevProps){
+        if (this.props.SearchTerm !== prevProps.SearchTerm)
         {
-            console.log("Staty thing is "+this.state.SearchTerm)
 
             axios
             .get(
-            `https://rickandmortyapi.com/api/character/?name=${this.state.SearchTerm}`
+            `https://rickandmortyapi.com/api/character/?name=${this.props.SearchTerm}`
             )
             .then(res=>this.props.setCharacters(res.data))
         }
@@ -67,11 +64,12 @@ class NavBar extends Component {
 }
 const mapStateToProps = state => (
     {
-        characters: state.getCharacter.characters 
+        characters: state.getCharacter.characters ,
+        SearchTerm: state.getCharacter.SearchTerm
     }
 )
 
 export default connect (
     mapStateToProps,
-    {setCharacters}
+    {setCharacters, setSearchTerm}
 ) (NavBar);

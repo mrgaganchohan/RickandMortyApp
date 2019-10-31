@@ -15,3 +15,9 @@ export const setCharacters = (characters) => dispatch =>
     dispatch({type: 'characters', payload: characters})
 }
 
+export const setSearchTerm = (SearchTerm) => dispatch =>
+{
+    dispatch({
+        type: 'SearchTerm', payload: SearchTerm
+    })
+}
