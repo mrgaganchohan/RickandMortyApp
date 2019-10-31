@@ -35,11 +35,10 @@ class NavBar extends Component {
 
             <nav className="navbar navbar-expand-sm navbar-light ml-lg-5 mr-lg-5">
                 
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <span className="navbar-toggler-icon" />
-                </button>
+                </button> */}
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <div className="mx-auto" style={{ width: "100%" }}>
                         <div className="input-group mb-3" style={{ paddingTop: "13px" }}>
                             <input type="text" className="form-control rounded-left" 
@@ -49,7 +48,7 @@ class NavBar extends Component {
                              onChange={this.onChange}/>
                             
                         </div>
-                    </div>
+                    
                 </div>
                     </nav>
                     </div>
