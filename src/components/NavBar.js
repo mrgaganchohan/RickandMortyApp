@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 
-import { setCharacters, setSearchTerm} from '../actions/GetCharacters';
+import { setCharacters, setSearchTerm, setCurrentPage
+        } from '../actions/GetCharacters';
 
 
 class NavBar extends Component {
@@ -20,12 +21,19 @@ class NavBar extends Component {
     componentDidUpdate(prevProps){
         if (this.props.SearchTerm !== prevProps.SearchTerm)
         {
-
             axios
             .get(
             `https://rickandmortyapi.com/api/character/?name=${this.props.SearchTerm}`
             )
-            .then(res=>this.props.setCharacters(res.data))
+            .then(res=> {
+                this.props.setCharacters(res.data)
+            }
+                )
+            // Make sure the catch is an arrow function
+            // catch( function(error{}) won't work
+            .catch((error)=> {
+                this.props.setCharacters({})
+            })
         }
     }
     render() {
@@ -34,10 +42,6 @@ class NavBar extends Component {
             <div style={this.navStyle}>
 
             <nav className="navbar navbar-expand-sm navbar-light ml-lg-5 mr-lg-5">
-                
-                {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                    <span className="navbar-toggler-icon" />
-                </button> */}
 
                     <div className="mx-auto" style={{ width: "100%" }}>
                         <div className="input-group mb-3" style={{ paddingTop: "13px" }}>
@@ -70,5 +74,5 @@ const mapStateToProps = state => (
 
 export default connect (
     mapStateToProps,
-    {setCharacters, setSearchTerm}
+    {setCharacters, setSearchTerm, setCurrentPage }
 ) (NavBar);

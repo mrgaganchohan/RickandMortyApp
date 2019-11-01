@@ -49,7 +49,17 @@ class AllChars extends Component {
   }
 
   render() {
+    if (Object.keys(this.props.characters).length===0)
+    {
+      return (
+        <div>
+          <h1> OOh a Universe with empty results</h1>
+        </div>
+      )
+    }
+    
     return (
+      <div>
       <div>
 
           <h1 style = {{
@@ -107,8 +117,6 @@ class AllChars extends Component {
           )}}
         >Page 20</a>
         {/* Making sure if there is no next page, it doesn't show the next button */}
-        {this.props.characters.info.pages  && console.log("value inside render is "+this.props.characters.info.pages)}
-        {console.log("next inside render is "+this.props.lastPage)}
 
         {
             (this.props.characters.info.next!=="") &&
@@ -138,7 +146,7 @@ class AllChars extends Component {
         </div>
         }
       </div>
-      
+      </div>
     );
   }
 }
