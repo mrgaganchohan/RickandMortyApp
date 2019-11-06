@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import CharItem from './CharItem';
-import { setCurrentPage , setLastPage, setCharacters} from '../actions/GetCharacters';
+import  Footer  from './Footer';
+import { setCurrentPage , setLastPage, setCharacters, setDisplaySearchFooter} 
+               from '../actions/GetCharacters';
 class AllChars extends Component {
   constructor(props) {
     super(props);
@@ -22,16 +24,24 @@ class AllChars extends Component {
     this.setState({ [e.target.name]: e.target.value })
 
   }
-  componentDidUpdate(prevProps){
+  // Fetches data based on the current page
+  async componentDidUpdate(prevProps){
     if (this.props.currentPage !== prevProps.currentPage){
-    axios
+      if (this.props.currentPage === 0)
+      {
+        console.log("this was hit with a zero")
+        console.log(this.props.SearchTerm)
+        this.props.setCurrentPage(1)
+      }
+    await axios
     .get(
-      `https://rickandmortyapi.com/api/character/?page=${this.props.currentPage}`
+      `https://rickandmortyapi.com/api/character/?name=${this.props.SearchTerm}&page=${this.props.currentPage}`
     )
     // .then(res => this.setState({ characters: res.data }));
-    .then(res=>this.props.setCharacters(res.data))
-    }
+    .then(res=>{this.props.setCharacters(res.data)
+    })}
   }
+  // Fetches data based on the current search
   componentDidMount() {
     // this.props.setCurrentPage()
     axios
@@ -49,6 +59,9 @@ class AllChars extends Component {
   }
 
   render() {
+
+    // If below condition is true render the following, else render the other return 
+    // statement.
     if (Object.keys(this.props.characters).length===0)
     {
       return (
@@ -76,74 +89,8 @@ class AllChars extends Component {
         </div>
         {/* APPLYING CONDITIONAL RENDERING WITH FOOTER */}
         {this.props.characters.info &&
-        <div className="footer">
-          
-        <br />
-        <br />
-        
-        <a
-          style={{ color: 'blue' , margin:'15px'}}
-            href="#"
-          onClick={() =>{this.props.setCurrentPage(
-             1
-          )}}
-        >
-          Home
-        </a 
-        >
-        {/* Conditional rendering being done here.   */}
+        <Footer />
 
-        {(this.props.currentPage!==1) && <a 
-        style = {{ color: 'blue', margin:"15px"}}
-        href= "#"
-        onClick={() =>{this.props.setCurrentPage(
-            (parseInt(this.props.currentPage) - 1)
-          )}}
-        >Previous</a>}
-
-        <a 
-        style = {{ color: 'blue', margin:"15px"}}
-        href= "#"
-        onClick={() =>{this.props.setCurrentPage(
-            10
-          )}}
-        >Page 10</a>
-
-<a 
-        style = {{ color: 'blue', margin:"15px"}}
-        href= "#"
-        onClick={() =>{this.props.setCurrentPage(
-            20
-          )}}
-        >Page 20</a>
-        {/* Making sure if there is no next page, it doesn't show the next button */}
-
-        {
-            (this.props.characters.info.next!=="") &&
-        <a 
-          style={{ color: 'blue', margin:"15px" }}
-          href="#top"
-          onClick={() =>{this.props.setCurrentPage(
-            (parseInt(this.props.currentPage) + 1)
-          )}}
-        >
-          Next
-        </a>
-        }
-
-        <a 
-          style={{ color: 'blue', margin:"15px" }}
-          href="#top"
-          onClick={() =>{this.props.setCurrentPage(
-             this.props.lastPage
-          )}}
-        >
-          Last Page
-        </a>
-        <br />
-        <br />
-        <hr />
-        </div>
         }
       </div>
       </div>
@@ -159,13 +106,15 @@ const characterStyle = {
   padding: '0 2rem'
 
 };
+//  getCharacter is given name in Reducer/index.js
 const mapStateToProps = state => ({
   currentPage: state.getCharacter.currentPage,
   lastPage: state.getCharacter.lastPage,
-  characters: state.getCharacter.characters
+  characters: state.getCharacter.characters,
+  SearchTerm: state.getCharacter.SearchTerm
 });
 
 export default connect(
   mapStateToProps,
-  { setCurrentPage, setLastPage, setCharacters }
+  { setCurrentPage, setLastPage, setCharacters, setDisplaySearchFooter }
 )(AllChars);

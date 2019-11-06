@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { connect } from 'react-redux';
 
-import { setCharacters, setSearchTerm, setCurrentPage
+import { setCharacters, setSearchTerm, setCurrentPage, setDisplaySearchFooter
         } from '../actions/GetCharacters';
 
 
@@ -12,22 +12,42 @@ class NavBar extends Component {
     state = {
     }
 
+    
     onChange = (e) =>{
         this.props.setSearchTerm(
              e.target.value
 
         )
+        
     }
-    componentDidUpdate(prevProps){
+
+
+    async componentDidUpdate(prevProps){
         if (this.props.SearchTerm !== prevProps.SearchTerm)
         {
-            axios
+            // if searchTerm is not empty, then set DisplaySearchFooter to true
+            // which means Footer related to search will be displayed.
+            // If DisplaySearchFooter is False, display normal footer, and not the 
+            // search one.
+            this.props.setCurrentPage(1);
+
+            if (this.props.SearchTerm!==""){
+                this.props.setDisplaySearchFooter(true);
+            }
+            else {
+                this.props.setDisplaySearchFooter(false);
+            }
+            // waits for the result
+
+            await axios
             .get(
             `https://rickandmortyapi.com/api/character/?name=${this.props.SearchTerm}`
             )
             .then(res=> {
                 this.props.setCharacters(res.data)
+
             }
+            
                 )
             // Make sure the catch is an arrow function
             // catch( function(error{}) won't work
@@ -35,6 +55,7 @@ class NavBar extends Component {
                 this.props.setCharacters({})
             })
         }
+
     }
     render() {
         return (
@@ -47,9 +68,11 @@ class NavBar extends Component {
                         <div className="input-group mb-3" style={{ paddingTop: "13px" }}>
                             <input type="text" className="form-control rounded-left" 
                              name = "SearchTerm"
+                             id = "searchBar"
                              placeholder="Serach Rick/ Morty Character"
                              aria-label="" aria-describedby="basic-addon1" 
-                             onChange={this.onChange}/>
+                             onChange={this.onChange}
+                             value={this.props.SearchTerm}/>
                             
                         </div>
                     
@@ -65,14 +88,17 @@ class NavBar extends Component {
     };
 
 }
+{/* getCharacter is given name in Reducer/index.js */}
+
 const mapStateToProps = state => (
     {
         characters: state.getCharacter.characters ,
-        SearchTerm: state.getCharacter.SearchTerm
+        SearchTerm: state.getCharacter.SearchTerm,
+        DisplaySearchFooter: state.getCharacter.DisplaySearchFooter
     }
 )
 
 export default connect (
     mapStateToProps,
-    {setCharacters, setSearchTerm, setCurrentPage }
+    {setCharacters, setSearchTerm, setCurrentPage, setDisplaySearchFooter }
 ) (NavBar);

@@ -21,3 +21,12 @@ export const setSearchTerm = (SearchTerm) => dispatch =>
         type: 'SearchTerm', payload: SearchTerm
     })
 }
+
+
+export const setDisplaySearchFooter = (DisplaySearchFooter) => dispatch =>
+    {
+        dispatch({
+            type: 'DisplaySearchFooter', payload: DisplaySearchFooter
+        })
+
+    }
