@@ -81,6 +81,19 @@ class AllChars extends Component {
 
 
           }}>Page {this.props.currentPage}</h1>
+          <p
+          style = {{
+            width: '15%',
+            marginLeft : '5%'
+          }}>
+            <b>Filter</b>
+            <br/>
+          <select name = "status">
+            <option value="Dead">Dead</option>
+            <option value="Alive">Alive</option>
+            <option value="Unknown">Unknown</option>
+          </select>
+          </p>
         <div style={characterStyle}>
           {/* Applying conditonal rendering below */}
           {this.props.characters.results && this.props.characters.results.map(characterItem => (

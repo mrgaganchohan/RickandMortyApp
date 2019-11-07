@@ -66,10 +66,12 @@ class NavBar extends Component {
 
                     <div className="mx-auto" style={{ width: "100%" }}>
                         <div className="input-group mb-3" style={{ paddingTop: "13px" }}>
+                            {/* Always try and link the value to the state as below or
+                            with props. */}
                             <input type="text" className="form-control rounded-left" 
                              name = "SearchTerm"
                              id = "searchBar"
-                             placeholder="Serach Rick/ Morty Character"
+                             placeholder="Search Rick/ Morty Character"
                              aria-label="" aria-describedby="basic-addon1" 
                              onChange={this.onChange}
                              value={this.props.SearchTerm}/>
