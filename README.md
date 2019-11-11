@@ -52,8 +52,8 @@ or
 
 ### Docker run
 
-`$ docker run -it -p 8080:80 reacty-build`
+`docker run -it -p 8080:80 reacty-build`
 <br/>
 or add -d to run it as daemon
 <br/>
-`$ docker run -d -it -p 8080:80 reacty-build`
+`docker run -d -it -p 8080:80 reacty-build`
