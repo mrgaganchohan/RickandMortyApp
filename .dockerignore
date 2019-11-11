@@ -1,0 +1,4 @@
+# during copy process ignore these files.
+node_modules
+.git
+build
